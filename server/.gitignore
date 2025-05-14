@@ -1,0 +1,83 @@
+# Node modules (both client and server)
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build artifacts (React and Node)
+build/
+dist/
+client/build/
+server/dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+client/.env
+client/.env.local
+server/.env
+server/.env.local
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage reports
+coverage/
+client/coverage/
+server/coverage/
+
+# MongoDB dumps
+dump/
+
+# RabbitMQ local state (if any temp data used)
+*.pid
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# IDE/editor folders
+.idea/
+.vscode/
+*.swp
+
+# Dependency lock files (optional — pick one system)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Local package store
+.pnpm-store/
+
+# Miscellaneous
+*.tgz
+*.bak
+*.orig
+*.log
+.nyc_output/
+.cache/
+.parcel-cache/
+
+# TypeScript build output (if used)
+*.tsbuildinfo
+
+# Ignore static uploads (if any)
+uploads/
+public/uploads/
+
+# Ignore test snapshots (if used)
+__snapshots__/
+
+# Ignore Firebase, Vercel, or Netlify config (if unused)
+.firebase/
+.vercel/
+.netlify/
+
+# dotenv backups or history
+*.env.backup
+*.env.old
