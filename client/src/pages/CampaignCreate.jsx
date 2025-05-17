@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // Constants
 const fields = [
   { label: 'Total Spend', value: 'totalSpend', color: 'bg-emerald-500', icon: '$' },
-  { label: 'Last Order Date', value: 'lastOrderDate', color: 'bg-indigo-500', icon: '📅' },
+  // { label: 'Last Order Date', value: 'lastOrderDate', color: 'bg-indigo-500', icon: '📅' },
   { label: 'Total Orders', value: 'orderCount', color: 'bg-amber-500', icon: '#' },
 ];
 
@@ -223,10 +223,6 @@ const CustomerPreviewCard = ({ customer }) => {
           <span className="block text-gray-400">Orders</span>
           <span className="text-white font-medium">{customer.orderCount}</span>
         </div>
-        <div className="p-2 bg-gray-700 rounded">
-          <span className="block text-gray-400">Last Order</span>
-          <span className="text-white font-medium">{formatDate(customer.lastOrderDate)}</span>
-        </div>
       </div>
     </div>
   );
@@ -252,14 +248,14 @@ const CampaignCreate = () => {
 const handlePreview = async () => {
   try {
     setPreviewLoading(true);
+    console.log('Previewing segments:', segments);
     const response = await axios.post('/api/campaigns/segments/preview', { segments });
-    
-    // Assuming your backend returns { size, userIds } where userIds is an array of user objects
     setAudienceSize(response.data.size);
     
-    // Map the userIds array to our preview format
-    if (response.data.userIds && response.data.userIds.length > 0) {
-      const previewData = response.data.userIds.map(user => ({
+    // Map the audience array to our preview format
+    if (response.data.audience && response.data.audience.length > 0) {
+      console.log('Preview data:', response.data.audience);
+      const previewData = response.data.audience.map(user => ({
         id: user._id,
         name: user.name || 'Unknown Customer',
         email: user.email || 'No email provided',

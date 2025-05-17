@@ -1,4 +1,6 @@
 - client
+  - .env
+  - .env.example
   - .gitignore
   - eslint.config.js
   - index.html
@@ -26,6 +28,7 @@
         - RuleItem.jsx
       - Sidebar.jsx
       - Spinner.jsx
+      - UpdateUserModal.jsx
       - UserCard.jsx
     - context
       - AuthContext.jsx
@@ -67,10 +70,10 @@
   - middleware
     - auth.js
   - models
-    - Admin.js
+    - admin.js
     - Campaign.js
     - CommunicationLog.js
-    - Order.js
+    - order.js
     - Segment.js
     - User.js
   - package.json

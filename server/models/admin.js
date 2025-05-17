@@ -3,12 +3,11 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
 
-
 const AdminSchema = new mongoose.Schema({
   googleId: {
     type: String,
-    unique: false, // Make optional for email login
-    sparse: true,
+    unique: true,
+    sparse: true, // Ensures null values are skipped in uniqueness checks
   },
   role: {
     type: String,
@@ -25,7 +24,8 @@ const AdminSchema = new mongoose.Schema({
     unique: true,
   },
   password: {
-    type: String, // Only for email login
+    type: String,
+    select: false, // Do not return password by default
   },
   avatar: {
     type: String,
@@ -46,15 +46,15 @@ const AdminSchema = new mongoose.Schema({
   ],
 });
 
-// Hash password before save
+// Hash password if it's modified
 AdminSchema.pre('save', async function (next) {
-  if (this.isModified('password')) {
+  if (this.isModified('password') && this.password) {
     this.password = await bcrypt.hash(this.password, 10);
   }
   next();
 });
 
-// Compare password method
+// Password verification
 AdminSchema.methods.comparePassword = function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
