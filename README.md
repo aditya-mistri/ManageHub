@@ -1,5 +1,4 @@
 # **CRM-DASH-PRO**
-Assignment By XENO
 ```
 ☑️ Data Ingestion APIs - Implemented using Pub-sub architecture - RabbitMQ
 ☑️ Campaign Creation UI - With drag and drop mechanics 
