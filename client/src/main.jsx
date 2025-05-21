@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { AuthProvider } from './context/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react'; // Import Analytics
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,5 +14,6 @@ root.render(
         <App />
       </AuthProvider>
     </BrowserRouter>
+    <Analytics /> {/* Add this line */}
   </React.StrictMode>
 );
