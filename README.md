@@ -1,221 +1,285 @@
-# **CRM-DASH-PRO**
+# CRM Dashboard Pro - TypeScript Migration
+
+A modern CRM system built with TypeScript, featuring a Next.js frontend and Node.js backend with RabbitMQ integration.
+
+## 🚀 Tech Stack
+
+### Backend (TypeScript)
+- **Node.js** with **Express.js**
+- **TypeScript** for type safety
+- **MongoDB** with **Mongoose**
+- **RabbitMQ** for message queuing
+- **JWT** authentication
+- **Google OAuth 2.0**
+- **Swagger** API documentation
+- **AI Integration** (OpenAI, Gemini, Together AI)
+
+### Frontend (Next.js + TypeScript)
+- **Next.js 14** with App Router
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **Zustand** for state management
+- **Framer Motion** for animations
+- **React Hot Toast** for notifications
+- **Headless UI** for accessible components
+
+## 📁 Project Structure
+
 ```
-☑️ Data Ingestion APIs - Implemented using Pub-sub architecture - RabbitMQ
-☑️ Campaign Creation UI - With drag and drop mechanics 
-☑️ Campaign Delivery - DB update in batches
-☑️ Google OAuth 2.0 Login system
-☑️ Used AI for for creative response to Admin 
+├── server-ts/                 # TypeScript Backend
+│   ├── src/
+│   │   ├── config/            # Configuration files
+│   │   ├── controllers/       # Route controllers
+│   │   ├── middleware/        # Express middleware
+│   │   ├── models/           # Mongoose models
+│   │   ├── routes/           # API routes
+│   │   ├── types/            # TypeScript type definitions
+│   │   ├── utils/            # Utility functions
+│   │   ├── consumer-service.ts # RabbitMQ consumer
+│   │   └── index.ts          # Main server file
+│   ├── dist/                 # Compiled JavaScript
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── frontend-nextjs/          # Next.js Frontend
+│   ├── src/
+│   │   ├── app/              # Next.js App Router
+│   │   ├── components/       # React components
+│   │   ├── lib/              # Utility libraries
+│   │   ├── store/            # Zustand stores
+│   │   ├── types/            # TypeScript types
+│   │   └── hooks/            # Custom React hooks
+│   ├── public/               # Static assets
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── tailwind.config.ts
 ```
 
-**ApiDocumentation - Swagger** : [Link](https://assignmentx-k4ii.onrender.com/api-docs/)
+## 🛠️ Installation & Setup
 
-**Website URL :** [Link](https://assignment-x-ruddy.vercel.app)
+### Prerequisites
+- Node.js 18+
+- MongoDB
+- RabbitMQ
+- TypeScript
 
-## **Project Overview**
+### Backend Setup
 
-This project, **CRM-DASH-PRO**, is designed to manage customers, orders, and campaigns in a modern CRM system. It demonstrates the integration of asynchronous messaging with **RabbitMQ**, secure authentication with **Google OAuth**, and dynamic campaign delivery with audience segmentation.
+1. **Navigate to backend directory:**
+   ```bash
+   cd server-ts
+   ```
 
-It includes:
-- A **MERN** (MongoDB, Express.js, React, Node.js) stack
-- **API documentation** using **swagger**
-- **Admin/user role-based access**
-- **RabbitMQ** for asynchronous data handling
-- **Campaign management** with rule-based audience targeting
-- **Communication logging** and **delivery stats**
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-## **Features**
+3. **Environment setup:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
-- 🔐 **Google OAuth**-based login and session management
-- 👤 **Admin and user authorization** levels
-- 📋 **Customer and order management panels**
-- 📦 **Campaign creation** with rule builder and delivery tracking
-- 📊 **Campaign history** with delivery performance
-- 🐇 **RabbitMQ** for processing customer/order/campaign events asynchronously
+4. **Build and start:**
+   ```bash
+   # Development
+   npm run dev:all  # Starts both API server and consumer
 
-## **Installation**
+   # Production
+   npm run build
+   npm start
+   ```
 
-To set up the project locally, follow these steps:
+### Frontend Setup
 
-1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/aditya-mistri/assignmentX
-    ```
+1. **Navigate to frontend directory:**
+   ```bash
+   cd frontend-nextjs
+   ```
 
-2. **Navigate to the project directory**:
-    ```
-    cd assignmentX
-    ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-3. **Install backend dependencies**:
-    ```
-    cd server
-    npm install
-    ```
+3. **Environment setup:**
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your configuration
+   ```
 
-4. **Install frontend dependencies**:
-    ```
-    cd ../client
-    npm install
-    ```
+4. **Start development server:**
+   ```bash
+   npm run dev
+   ```
 
-### **.env file for client & server**
+## 🔧 Environment Variables
 
+### Backend (.env)
 ```env
-
-VITE_BACKEND_URL="your-backend-url"
-
-
-.env for server
-
-PORT=
-MONGODB_URI=
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-RABBITMQ_URL=
-OPENAI_API_KEY=
-GEMINI_API_KEY=
+NODE_ENV=development
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/crm-dashboard-pro
+JWT_SECRET=your-super-secret-jwt-key
+SESSION_SECRET=your-session-secret
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+RABBITMQ_URL=amqp://localhost
+CLIENT_URL=http://localhost:3000
+OPENAI_API_KEY=your-openai-api-key
+GEMINI_API_KEY=your-gemini-api-key
+TOGETHER_API_KEY=your-together-api-key
 ```
 
-## Usage
-### Start the backend server:
-
-```
-cd server
-npm run dev:all ### This starts the backend(Nodejs+express) & Consumer Service concurrently
-```
-### Start the frontend
-```
-cd client
-npm run dev
-
+### Frontend (.env.local)
+```env
+NEXT_PUBLIC_BACKEND_URL=http://localhost:5000
 ```
 
-```
-assignmentX/
-│
-├── client/                         # Frontend React Application
-│   ├── .env                        # Environment variables
-│   ├── .gitignore                  # Git ignore file
-│   ├── eslint.config.js            # ESLint configuration
-│   ├── index.html                  # Main HTML entry point
-│   ├── package.json                # Frontend npm dependencies
-│   ├── pnpm-lock.yaml              # Dependency lock file
-│   ├── public/                     # Public assets
-│   │   └── vite.svg                # Vite logo
-│   ├── README.md                   # Frontend README
-│   ├── src/                        # Source directory
-│   │   ├── App.css                 # Global CSS
-│   │   ├── App.jsx                 # Main React application component
-│   │   ├── assets/                 # Static assets
-│   │   │   └── react.svg           # React logo
-│   │   ├── components/             # Reusable React components
-│   │   │   ├── Alert.jsx           # Alert component
-│   │   │   ├── Card.jsx            # Generic card component
-│   │   │   ├── CreateOrderModal.jsx# Modal for creating orders
-│   │   │   ├── CreateUserModal.jsx # Modal for creating users
-│   │   │   ├── Layout.jsx          # Main layout component
-│   │   │   ├── Navbar.jsx          # Navigation bar
-│   │   │   ├── OrderCard.jsx       # Order display card
-│   │   │   ├── RuleBuilder/        # Rule builder components
-│   │   │   │   ├── RuleBuilder.jsx # Main rule builder
-│   │   │   │   ├── RuleGroup.jsx   # Rule grouping logic
-│   │   │   │   └── RuleItem.jsx    # Individual rule item
-│   │   │   ├── Sidebar.jsx         # Application sidebar
-│   │   │   ├── Spinner.jsx         # Loading spinner
-│   │   │   └── UserCard.jsx        # User display card
-│   │   ├── context/                # React context providers
-│   │   │   └── AuthContext.jsx     # Authentication context
-│   │   ├── index.css               # Global CSS styles
-│   │   ├── main.jsx                # React entry point
-│   │   └── pages/                  # Page components
-│   │       ├── CampaignCreate.jsx  # Campaign creation page
-│   │       ├── CampaignHistory.jsx # Campaign history page
-│   │       ├── CustomerDetail.jsx  # Customer details page
-│   │       ├── Dashboard.jsx       # Main dashboard
-│   │       ├── Login.jsx           # Login page
-│   │       ├── Orders.jsx          # Orders management page
-│   │       ├── Profile.jsx         # User profile page
-│   │       ├── Settings.jsx        # Application settings
-│   │       └── Users.jsx           # User management page
-│   └── vite.config.js              # Vite configuration
-│
-└── server/                         # Backend Node.js Application
-    ├── .env                        # Environment variables
-    ├── config/                     # Configuration files
-    │   ├── passport.js             # Passport.js configuration
-    │   ├── rabbitmq.js             # RabbitMQ connection setup
-    │   └── swagger.js              # Swagger documentation config
-    ├── consumer-service.js         # Main consumer service
-    ├── consumer/                   # Consumer-related files
-    │   └── index.js                # Consumer entry point
-    ├── controllers/                # Route controllers
-    │   └── authController.js
-    │   └── customerController.js
-    │   └── orderController.js
-    │   └── campaignController.js
-    ├── index.js                    # Main server entry point
-    ├── middleware/                 # Express middleware
-    │   └── auth.js                 # Authentication middleware
-    ├── models/                     # Mongoose models
-    │   ├── admin.js                # Admin user model
-    │   ├── Campaign.js             # Campaign data model
-    │   ├── order.js                # Order data model
-    │   ├── Segment.js              # Customer segment model
-    │   └── User.js                 # User data model
-    ├── package.json                # Backend npm dependencies
-    ├── package-lock.json           # Dependency lock file
-    ├── pnpm-lock.yaml              # Alternative lock file
-    └── routes/                     # Express routes
-        ├── auth.js                 # Authentication routes
-        ├── campaigns.js            # Campaign-related routes
-        ├── customers.js            # Customer-related routes
-        └── order.js                # Order-related routes
+## 🚀 Key Features
 
-```
+### ✅ Type Safety
+- Full TypeScript implementation
+- Shared type definitions
+- Compile-time error checking
+- Better IDE support and autocomplete
 
-### **Project Architecture**
-![image](https://github.com/user-attachments/assets/64d98092-d9dd-45f7-8b0f-7e4b1ce6470e)
+### ✅ Modern Architecture
+- **Backend**: Express.js with TypeScript
+- **Frontend**: Next.js 14 with App Router
+- **State Management**: Zustand
+- **Styling**: Tailwind CSS
+- **Database**: MongoDB with Mongoose
 
-### **Rabbit MQ Part - The most crucial part**
+### ✅ Authentication & Authorization
+- Google OAuth 2.0 integration
+- JWT-based authentication
+- Role-based access control (Admin/User)
+- Secure session management
 
-![image](https://github.com/user-attachments/assets/52d1b199-58b5-4545-afa0-1f705e1bd7d2)
+### ✅ Real-time Processing
+- RabbitMQ message queuing
+- Asynchronous data processing
+- Event-driven architecture
+- Scalable background jobs
 
-**Architecture Overview**
-This system uses RabbitMQ as a message broker to decouple the main API from background processing tasks. The flow works as follows:
+### ✅ Campaign Management
+- Rule-based audience segmentation
+- Campaign creation and tracking
+- AI-powered insights
+- Performance analytics
 
-API receives request from frontend/client
-API publishes message to RabbitMQ exchange
-Consumer services process messages from queues asynchronously
+### ✅ API Documentation
+- Swagger/OpenAPI documentation
+- Interactive API explorer
+- Type-safe API client
 
+## 📊 API Endpoints
 
-**Configuration**
-The RabbitMQ setup is configured in config/rabbitmq.js with:
+### Authentication
+- `POST /api/auth/login` - Email/password login
+- `POST /api/auth/register` - User registration
+- `GET /api/auth/google` - Google OAuth
+- `POST /api/auth/verify-token` - Token verification
 
-```
-// Connection
-const RABBITMQ_URL = process.env.RABBITMQ_URL || 'amqp://localhost';
+### Customers
+- `GET /api/customers` - List customers
+- `POST /api/customers` - Create customer
+- `PUT /api/customers/:id` - Update customer
+- `DELETE /api/customers/:id` - Delete customer
 
-// Core Components
-const EXCHANGES = {
-  DATA_INGESTION: 'data_ingestion_exchange' // Topic exchange
-};
+### Orders
+- `GET /api/orders` - List orders
+- `POST /api/orders` - Create order
+- `PUT /api/orders/:id` - Update order
+- `GET /api/orders/customer/:id` - Customer orders
 
-const QUEUES = {
-  CUSTOMER: 'customer_queue',
-  ORDER: 'order_queue',
-  CAMPAIGN: 'campaign_queue'
-};
+### Campaigns
+- `GET /api/campaigns` - List campaigns
+- `POST /api/campaigns` - Create campaign
+- `POST /api/campaigns/segments/preview` - Preview audience
+- `POST /api/campaigns/:id/insight` - Generate AI insights
 
-const ROUTING_KEYS = {
-  CUSTOMER_CREATE: 'customer.create',
-  // ... other routing keys
-};
+## 🔄 Migration Benefits
 
+### From JavaScript to TypeScript:
+1. **Type Safety**: Catch errors at compile time
+2. **Better IDE Support**: Enhanced autocomplete and refactoring
+3. **Self-Documenting Code**: Types serve as documentation
+4. **Easier Refactoring**: Confident code changes
+5. **Better Team Collaboration**: Clear interfaces and contracts
+
+### From React to Next.js:
+1. **Server-Side Rendering**: Better SEO and performance
+2. **App Router**: Modern routing with layouts
+3. **Built-in Optimization**: Image optimization, code splitting
+4. **API Routes**: Full-stack capabilities
+5. **Better Developer Experience**: Hot reloading, TypeScript support
+
+## 🧪 Development Commands
+
+### Backend
+```bash
+npm run dev          # Start development server
+npm run consumer     # Start RabbitMQ consumer
+npm run dev:all      # Start both server and consumer
+npm run build        # Build TypeScript
+npm run type-check   # Type checking only
+npm run lint         # ESLint
 ```
 
-For production purpose I have used **cloudmq**, for depicting **rabbitmq** , and deployed both **consumer and main server in render.com**.
+### Frontend
+```bash
+npm run dev          # Start Next.js development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # ESLint
+npm run type-check   # TypeScript checking
+```
 
+## 📈 Performance Improvements
 
-### **Note**
+1. **TypeScript Compilation**: Optimized builds
+2. **Next.js Optimizations**: Automatic code splitting
+3. **Image Optimization**: Next.js Image component
+4. **Bundle Analysis**: Built-in bundle analyzer
+5. **Caching**: Improved caching strategies
 
-This application is still under development, by Aditya Mistri
+## 🔒 Security Enhancements
+
+1. **Type-Safe API**: Prevents runtime errors
+2. **Input Validation**: Express-validator with TypeScript
+3. **JWT Security**: Typed JWT payloads
+4. **CORS Configuration**: Proper origin handling
+5. **Environment Variables**: Type-safe env config
+
+## 🚀 Deployment
+
+### Backend Deployment
+```bash
+npm run build
+npm start
+```
+
+### Frontend Deployment
+```bash
+npm run build
+npm start
+```
+
+## 📝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with proper TypeScript types
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+MIT License - see LICENSE file for details
+
+---
+
+**Note**: This is a complete TypeScript migration of the original CRM Dashboard Pro project, providing better type safety, developer experience, and maintainability.
